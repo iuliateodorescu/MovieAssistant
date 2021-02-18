@@ -25,8 +25,6 @@ namespace MovieAssistant.API
                 var body = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(body);
             }
-
-            string a = "";
         }
 
     }
