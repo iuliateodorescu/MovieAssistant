@@ -1,0 +1,10 @@
+Movie{
+	ProgramType, 
+	Title, 
+	Year, 
+	OriginalLanguage, 
+	Runtime, 
+	List<Contributors>, 
+	Description, 
+	Image
+}
