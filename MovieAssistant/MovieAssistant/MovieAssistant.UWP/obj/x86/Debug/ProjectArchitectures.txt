@@ -1,1 +1,0 @@
-D:\FACULTATE\Anul IV\SEMESTRUL 2\SE\MovieAssistant\MovieAssistant\MovieAssistant\MovieAssistant.UWP\MovieAssistant.UWP.csproj;x86
