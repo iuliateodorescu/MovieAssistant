@@ -157,4 +157,10 @@
       <Name>MovieAssistant</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_home_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\baseline_history_white_24dp.png" />
+  </ItemGroup>
 </Project>
