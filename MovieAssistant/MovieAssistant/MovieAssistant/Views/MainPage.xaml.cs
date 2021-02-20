@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MovieAssistant.API;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,10 @@ namespace MovieAssistant.Views
         public MainPage()
         {
             InitializeComponent();
+
+            ApiConnector connector = new ApiConnector();
+
+            connector.connect();
         }
     }
 }
