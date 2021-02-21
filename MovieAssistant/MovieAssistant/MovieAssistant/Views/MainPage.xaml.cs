@@ -1,9 +1,4 @@
-﻿using MovieAssistant.API;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MovieAssistant.ViewModel;
 using Xamarin.Forms;
 
 namespace MovieAssistant.Views
@@ -14,9 +9,8 @@ namespace MovieAssistant.Views
         {
             InitializeComponent();
 
-            ApiConnector connector = new ApiConnector();
-
-            connector.connect();
+            MoviesViewModel VM = new MoviesViewModel();
+            this.BindingContext = VM;
         }
     }
 }
