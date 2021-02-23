@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
-using Syncfusion.SfCarousel.XForms.iOS;
 using UIKit;
 
 namespace MovieAssistant.iOS
@@ -24,8 +23,9 @@ namespace MovieAssistant.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            new SfCarouselRenderer();
             LoadApplication(new App());
+
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
 
             return base.FinishedLaunching(app, options);
         }
