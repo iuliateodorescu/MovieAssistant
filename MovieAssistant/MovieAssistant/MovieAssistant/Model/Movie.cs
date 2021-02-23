@@ -1,12 +1,11 @@
-﻿using Android.Graphics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace MovieAssistant.Model
 {
     internal class Movie
     {
-        public Movie(string programType, string title, int year, string language, int runtime, string description, List<Contributor> contributors, Bitmap image = null)
+        public Movie(string programType, string title, int year, string language, int runtime, string description, List<Contributor> contributors, byte[] image = null)
         {
             this.programType = programType;
             this.title = title;
@@ -103,7 +102,7 @@ namespace MovieAssistant.Model
             }
         }
 
-        public Bitmap Image
+        public byte[] Image
         {
             get
             {
@@ -122,7 +121,7 @@ namespace MovieAssistant.Model
         private int year;
         private string language;
         private int runtime;
-        private Bitmap image;
+        private byte[] image;
         private string description;
         private List<Contributor> contributors;
         #endregion

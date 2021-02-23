@@ -1,27 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:MovieAssistant"
-             x:Class="MovieAssistant.Views.MainPage">
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:local="clr-namespace:MovieAssistant.Views"
+            x:Class="MovieAssistant.Views.MainPage"
+            BarBackgroundColor="Black"
+            BackgroundColor="Black">
 
-    <ContentPage Title="HomePage" Icon="baseline_home_white_24dp.png">
-        <ContentPage.Content>
-            <StackLayout>
-                <Label Text="HOME PAGE"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            </StackLayout>
-        </ContentPage.Content>
-    </ContentPage>
-
-    <ContentPage Title="HistoryPage" Icon="baseline_history_white_24dp.png">
-        <ContentPage.Content>
-            <StackLayout>
-                <Label Text="HISTORY PAGE"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            </StackLayout>
-        </ContentPage.Content>
-    </ContentPage>
-
+    <local:HomePage></local:HomePage>
+    <local:FavouritesPage></local:FavouritesPage>
+    <local:HistoryPage></local:HistoryPage>
 </TabbedPage>

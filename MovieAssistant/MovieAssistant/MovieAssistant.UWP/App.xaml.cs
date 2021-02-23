@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Syncfusion.SfCarousel.XForms.UWP;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -51,6 +53,9 @@ namespace MovieAssistant.UWP
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
+
+                List<Assembly> assembliesToInclude = new List<Assembly>();
+                assembliesToInclude.Add(typeof(SfCarouselRenderer).GetTypeInfo().Assembly);
 
                 Xamarin.Forms.Forms.Init(e);
 

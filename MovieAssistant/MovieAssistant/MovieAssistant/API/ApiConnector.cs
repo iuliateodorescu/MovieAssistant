@@ -32,7 +32,7 @@ namespace MovieAssistant.API
                     List<Movie> movies = parseMovieListJson(JObject.Parse(body));
                 }
             }
-            catch (Java.Net.UnknownHostException)
+            catch (Exception)
             {
                 Console.WriteLine("No Internet Connection");
             }
