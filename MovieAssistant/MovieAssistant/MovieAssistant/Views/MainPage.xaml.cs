@@ -8,9 +8,6 @@ namespace MovieAssistant.Views
         public MainPage()
         {
             InitializeComponent();
-
-            MoviesViewModel VM = new MoviesViewModel();
-            this.BindingContext = VM;
         }
     }
 }

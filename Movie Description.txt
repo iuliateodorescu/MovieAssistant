@@ -1,0 +1,3 @@
+movie[type["movie"], title["title"], year[1974],  duration[120], actors["a1" "a2"], description[""], image[""]]
+
+title[""],type,year,duration,a1,a2,description,image

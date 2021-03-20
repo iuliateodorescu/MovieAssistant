@@ -3,18 +3,5 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:MovieAssistant.Views"
              x:Class="MovieAssistant.Views.MainPage">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            
-        </Grid.ColumnDefinitions>
-
-        <Grid.RowDefinitions>
-
-        </Grid.RowDefinitions>
-
-        <Image Source="{Binding Path=Source}"/>
-        
-
-    </Grid>
 
 </ContentPage>

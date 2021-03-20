@@ -1,39 +1,90 @@
-﻿using MovieAssistant.API;
-using MovieAssistant.Model;
-using System;
+﻿using MovieAssistant.InferenceEngine;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
-using System.Text;
-using Xamarin.Forms;
+using System.Runtime.CompilerServices;
 
 namespace MovieAssistant.ViewModel
 {
-    class MoviesViewModel  : INotifyPropertyChanged
+    class MoviesViewModel : INotifyPropertyChanged
     {
-        public MoviesViewModel()
+        private MoviesViewModel()
         {
-            ApiConnector connector = new ApiConnector();
-
-            movies = connector.getMoviesAsync("Titanic", "Movie");
-            OnPropertyChanged(nameof(Source));
+            facts = new List<string>();
+            Question = ForwardChainingEngine.getInstance().searchQuestion("-");
         }
 
-        public ImageSource Source
-        {
-            get
-            {
-                return movies[2].Image;
-            }
-        }
-
-        private List<Movie> movies;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string name = null)
+        #region Property Changed Event
+        protected void NotifyPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
+
+        #region Methods
+        public void RunEngine()
+        {
+            facts.Add(Question.Domain + selectedAnswer);
+            facts = ForwardChainingEngine.getInstance().checkRules(facts);
+            Question = ForwardChainingEngine.getInstance().searchQuestion(Question.Domain);
+
+            if(Question == null)
+            {
+                Movie = ForwardChainingEngine.getInstance().searchMovies(facts);
+            }
+        }
+        #endregion
+
+        #region Properties
+        public Question Question
+        {
+            get
+            {
+                return question;
+            }
+            set
+            {
+                if (value != null)
+                {
+                    question = value;
+                    selectedAnswer = question.Answers[0];
+                    NotifyPropertyChanged(nameof(Question));
+                }
+            }
+        }
+
+        public Movie Movie
+        {
+            get
+            {
+                return movie;
+            }
+            set
+            {
+                movie = value;
+                NotifyPropertyChanged(nameof(Movie));
+            }
+        }
+
+        public string SelectedAnswer
+        {
+            get
+            {
+                return selectedAnswer;
+            }
+            set
+            {
+                selectedAnswer = value;
+            }
+        }
+        #endregion
+
+        #region Fields
+        private Question question;
+        private string selectedAnswer;
+        private List<string> facts;
+        private Movie movie;
+        #endregion
     }
 }
