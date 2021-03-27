@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:MovieAssistant.ViewModel"
+             xmlns:controls="clr-namespace:PanCardView.Controls;assembly=PanCardView"
+             xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+             xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Class="MovieAssistant.Views.HomePage"
+             Title="Home"
+             Icon="outline_home_black_24dp.png"
+             BackgroundColor="White">
+
+    <ContentPage.BindingContext>
+        <viewModel:HomeViewModel/>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+                <!--<RowDefinition Height="*"/>-->
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0">
+                <Image Source="logo.png"/>
+            </StackLayout>
+
+            <StackLayout Padding="30,20"
+                     Grid.Row="1"
+                     BackgroundColor="#FF6347">
+                <Label TextColor="White" FontSize="Title"
+                   Text="Tailored for your taste.&#10;Keeping up with your mood."/>
+                <Label TextColor="White" FontSize="Subtitle"
+                   Text="Movies &amp; TV Shows&#10;Recommendations"/>
+                <cards:CarouselView
+                    ItemsSource="{Binding Images}"
+                    SlideShowDuration="4000">
+                    <cards:CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <ContentView>
+                                <Frame
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                HeightRequest="268"
+                                WidthRequest="182"
+                                Padding="0"
+                                HasShadow="False"
+                                IsClippedToBounds="True"
+                                Margin="40 0 0 0">
+                                    <ffimage:CachedImage Source="{Binding}"/>
+                                </Frame>
+                            </ContentView>
+                        </DataTemplate>
+                    </cards:CarouselView.ItemTemplate>
+
+                    <controls:IndicatorsControl/>
+                    <controls:LeftArrowControl/>
+                    <controls:RightArrowControl/>
+                </cards:CarouselView>
+            </StackLayout>
+
+            <!--<StackLayout Grid.Row="2">
+                <cards:CarouselView
+            ItemsSource="{Binding Images}"
+            SlideShowDuration="4000">
+                    <cards:CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <ContentView>
+                                <Frame
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            HeightRequest="268"
+                            WidthRequest="182"
+                            Padding="0"
+                            HasShadow="False"
+                            IsClippedToBounds="True">
+
+                                    <ffimage:CachedImage Source="{Binding Source}"/>
+                                </Frame>
+                            </ContentView>
+                        </DataTemplate>
+                    </cards:CarouselView.ItemTemplate>
+
+                    <controls:IndicatorsControl/>
+                    <controls:LeftArrowControl/>
+                    <controls:RightArrowControl/>
+                </cards:CarouselView>
+            </StackLayout>-->
+        </Grid>
+    </ScrollView>
+</ContentPage>

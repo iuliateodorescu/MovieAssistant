@@ -25,6 +25,8 @@ namespace MovieAssistant.iOS
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+
             return base.FinishedLaunching(app, options);
         }
     }

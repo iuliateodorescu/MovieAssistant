@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:MovieAssistant.ViewModel"
+             x:Class="MovieAssistant.Views.QuestionsPage"
+             Title="Questions"
+             Icon="outline_question_answer_black_24dp.png">
+
+    <ContentPage.BindingContext>
+        <viewModel:QuestionsViewModel/>
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0"  
+               Text="{Binding Question.QuestionText}"
+               FontSize="Large"
+               VerticalOptions="CenterAndExpand" 
+               HorizontalOptions="CenterAndExpand" />
+
+        <ListView Grid.Row="1" ItemsSource="{Binding Question.Answers}" SelectionMode="None" VerticalOptions="CenterAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <RadioButton Content="{Binding}" HorizontalOptions="StartAndExpand" GroupName="Answers" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Grid.Row="2" Text="Next"
+                FontSize="Large"
+                BackgroundColor="#FF6347"
+                TextColor="White"
+                Margin="30"/>
+
+    </Grid>
+</ContentPage>
