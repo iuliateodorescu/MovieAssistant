@@ -46,8 +46,7 @@
                                 WidthRequest="182"
                                 Padding="0"
                                 HasShadow="False"
-                                IsClippedToBounds="True"
-                                Margin="40 0 0 0">
+                                IsClippedToBounds="True">
                                     <ffimage:CachedImage Source="{Binding}"/>
                                 </Frame>
                             </ContentView>

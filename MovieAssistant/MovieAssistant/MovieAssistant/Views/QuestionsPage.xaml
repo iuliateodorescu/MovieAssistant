@@ -28,7 +28,8 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout>
-                            <RadioButton Content="{Binding}" HorizontalOptions="StartAndExpand" GroupName="Answers" />
+                            <RadioButton Content="{Binding AnswerText}" HorizontalOptions="StartAndExpand" 
+                                         GroupName="Answers" IsChecked="{Binding IsChecked}"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
@@ -39,7 +40,8 @@
                 FontSize="Large"
                 BackgroundColor="#FF6347"
                 TextColor="White"
-                Margin="30"/>
+                Margin="30"
+                Command="{Binding RunEngineCommand}"/>
 
     </Grid>
 </ContentPage>

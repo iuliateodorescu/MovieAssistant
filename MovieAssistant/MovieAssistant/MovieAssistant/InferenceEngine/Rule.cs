@@ -14,9 +14,9 @@ namespace MovieAssistant.InferenceEngine
 
         internal bool isSatisfied(List<string> trueFacts)
         {
-            foreach(string fact in conditions)
+            foreach(string condition in conditions)
             {
-                if (!trueFacts.Contains(fact))
+                if (!trueFacts.Contains(condition))
                 {
                     return false;
                 }

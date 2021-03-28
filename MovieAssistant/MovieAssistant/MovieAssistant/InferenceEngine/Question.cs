@@ -6,11 +6,16 @@ namespace MovieAssistant.InferenceEngine
 {
     class Question
     {
-        public Question(string questionText, string domain, List<string> answers)
+        public Question(string questionText, string domain, List<string> answerTexts)
         {
             this.questionText = questionText;
             this.domain = domain;
-            this.answers = answers;
+            this.answers = new List<Answer>();
+
+            foreach(var answerText in answerTexts)
+            {
+                this.answers.Add(new Answer(answerText));
+            }
         }
 
         #region Properties
@@ -22,7 +27,7 @@ namespace MovieAssistant.InferenceEngine
             }
         }
 
-        public List<string> Answers
+        public List<Answer> Answers
         {
             get
             {
@@ -42,7 +47,7 @@ namespace MovieAssistant.InferenceEngine
         #region Fields
         private string questionText;
         private string domain;
-        private List<string> answers;
+        private List<Answer> answers;
         #endregion
     }
 }

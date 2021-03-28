@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace MovieAssistant.InferenceEngine
@@ -10,8 +11,8 @@ namespace MovieAssistant.InferenceEngine
     {
         private ForwardChainingEngine()
         {
-            rules = File.ReadAllLines("rules.txt");
-            movies = File.ReadAllLines("movies.txt");
+            rules = readFileFromResources("rules.txt");
+            movies = readFileFromResources("movies.txt");
         }
 
         internal static ForwardChainingEngine getInstance()
@@ -25,14 +26,34 @@ namespace MovieAssistant.InferenceEngine
         }
 
         #region Methods
-        internal Question searchQuestion(string domain)
+        private string[] readFileFromResources(string filename)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            string resourcePath = assembly.GetManifestResourceNames().Single(str => str.EndsWith(filename));
+            string content;
+            using (Stream stream = assembly.GetManifestResourceStream(resourcePath))
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    content = reader.ReadToEnd();
+                }
+            }
+
+            return content.Split('\n');
+        }
+
+        internal Question searchQuestion(string domain, List<string> facts)
         {
             int i = 0;
+            List<string> trueFacts = new List<string>();
+            trueFacts.AddRange(facts);
+            trueFacts.Add("about[" + domain + "]");
             while (i < rules.Length)
             {
-                if (rules[i].Contains("about[" + domain + "]"))
+                Rule r = readRule(rules[i]);
+                if (r.isSatisfied(trueFacts))
                 {
-                    return readQuestion(readRule(rules[i]).Action);
+                    return readQuestion(r.Action);
                 }
 
                 i++;
@@ -50,7 +71,6 @@ namespace MovieAssistant.InferenceEngine
                 Rule rule = readRule(rules[i]);
                 if (rule.isSatisfied(trueFacts) && !trueFacts.Contains(rule.Action))
                 {
-
                     trueFacts.Add(rule.Action);
 
                     i = 0;
@@ -92,7 +112,7 @@ namespace MovieAssistant.InferenceEngine
         private Question readQuestion(string action)
         {
             string questionDetails = valueBetween(action, "[", "]");
-            string[] questionItems = questionDetails.Split(' ');
+            string[] questionItems = questionDetails.Split('*');
 
             string question = questionItems[0];
             string domain = questionItems.Last();
@@ -109,8 +129,8 @@ namespace MovieAssistant.InferenceEngine
 
         private Rule readRule(string line)
         {
-            string[] ruleParts = line.Split(' ');
-            string action = ruleParts.Last();
+            string[] ruleParts = line.Split('_');
+            string action = ruleParts.Last().Trim();
 
             List<string> conditions = new List<string>();
             foreach (var part in ruleParts)
