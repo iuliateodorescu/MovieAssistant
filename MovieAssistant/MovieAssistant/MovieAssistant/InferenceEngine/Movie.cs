@@ -112,7 +112,7 @@ namespace MovieAssistant.InferenceEngine
         {
             get
             {
-                return ImageSource.FromFile("someone_great_poster.jpg");
+                return image;
             }
             set
             {

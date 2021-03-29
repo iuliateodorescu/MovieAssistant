@@ -22,7 +22,7 @@ namespace MovieAssistant.InferenceEngine
             List<string> actors = movieItems.Where(x => x.StartsWith("actor")).Select(x => valueBetween(x, "[", "]")).ToList();
             byte[] imageBytes = requestImage(valueBetween(movieItems.FirstOrDefault(x => x.StartsWith("image")), "[", "]"));
 
-            return new Movie(programType, title, year, duration, genres, actors, null);
+            return new Movie(programType, title, year, duration, genres, actors, imageBytes);
         }
 
         private string valueBetween(string value, string startString, string endString)
