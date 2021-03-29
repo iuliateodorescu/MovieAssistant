@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<Grid xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MovieAssistant.Views.ResultsPage"
              xmlns:viewModel="clr-namespace:MovieAssistant.ViewModel"
-             Title="Results">
+             IsVisible="{Binding IsFinished}">
 
-    <ContentPage.BindingContext>
+    <Grid.BindingContext>
         <viewModel:QuestionsViewModel/>
-    </ContentPage.BindingContext>
+    </Grid.BindingContext>
 
     <ListView x:Name="MyListView"
               ItemsSource="{Binding Movies}"
@@ -56,6 +56,5 @@
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
-
     </ListView>
-</ContentPage>
+</Grid>

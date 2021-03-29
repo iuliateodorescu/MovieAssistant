@@ -49,13 +49,10 @@ namespace MovieAssistant.ViewModel
             }
             else
             {
+                IsFinished = true;
                 Movies = ForwardChainingEngine.getInstance().searchMovies(facts);
                 facts = new List<string>();
-                Question = ForwardChainingEngine.getInstance().searchQuestion("-", facts);
-                finished = true;
-                NotifyPropertyChanged(nameof(Movies));
-                NotifyPropertyChanged(nameof(ShowResults));
-                NotifyPropertyChanged(nameof(ShowQuestions));
+                Question = ForwardChainingEngine.getInstance().searchQuestion("-", facts); 
             }
         }
 
@@ -105,29 +102,16 @@ namespace MovieAssistant.ViewModel
             }
         }
 
-        public bool ShowQuestions
+        public bool IsFinished
         {
             get
             {
-                return !finished;
+                return isFinished;
             }
-        }
-
-        public bool ShowResults
-        {
-            get
-            {
-                return finished;
-            }
-        }
-
-        public bool Finished
-        {
             set
             {
-                finished = value;
-                NotifyPropertyChanged(nameof(ShowQuestions));
-                NotifyPropertyChanged(nameof(ShowResults));
+                isFinished = value;
+                NotifyPropertyChanged(nameof(IsFinished));
             }
         }
         #endregion
@@ -136,7 +120,7 @@ namespace MovieAssistant.ViewModel
         private Question question;
         private List<string> facts;
         private ObservableCollection<Movie> movies;
-        private bool finished = false;
+        private bool isFinished = false;
         #endregion
 
         #region Commands

@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace MovieAssistant.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RecommendationsPage : TabbedPage
+    public partial class RecommendationsPage : ContentPage
     {
         public RecommendationsPage()
         {

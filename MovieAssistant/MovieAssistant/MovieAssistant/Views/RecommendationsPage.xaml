@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MovieAssistant.Views.RecommendationsPage"
              xmlns:local="clr-namespace:MovieAssistant.Views"
              xmlns:viewModel="clr-namespace:MovieAssistant.ViewModel"
-             Title="Quiz"
+             Title="Questions"
              Icon="outline_question_answer_black_24dp.png">
-
-    <local:QuestionsPage/>
-    <local:ResultsPage/>
-
-</TabbedPage>
+    <Grid>
+        <local:QuestionsPage/>
+        <local:ResultsPage/>
+    </Grid>
+    
+</ContentPage>

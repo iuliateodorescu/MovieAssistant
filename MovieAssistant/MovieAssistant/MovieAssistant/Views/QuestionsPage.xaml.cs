@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace MovieAssistant.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class QuestionsPage : ContentPage
+    public partial class QuestionsPage : Grid
     {
         public QuestionsPage()
         {
