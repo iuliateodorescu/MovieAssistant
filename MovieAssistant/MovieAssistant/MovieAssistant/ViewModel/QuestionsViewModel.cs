@@ -53,9 +53,7 @@ namespace MovieAssistant.ViewModel
                 facts = new List<string>();
                 Question = ForwardChainingEngine.getInstance().searchQuestion("-", facts);
                 finished = true;
-                NotifyPropertyChanged(nameof(Movies));
-                NotifyPropertyChanged(nameof(ShowResults));
-                NotifyPropertyChanged(nameof(ShowQuestions));
+                NotifyPropertyChanged(nameof(MovieListHeight));
             }
         }
 
@@ -128,6 +126,14 @@ namespace MovieAssistant.ViewModel
                 finished = value;
                 NotifyPropertyChanged(nameof(ShowQuestions));
                 NotifyPropertyChanged(nameof(ShowResults));
+            }
+        }
+
+        public int MovieListHeight
+        {
+            get
+            {
+                return movies != null ? movies.Count * 350 + 1 : 0;
             }
         }
         #endregion

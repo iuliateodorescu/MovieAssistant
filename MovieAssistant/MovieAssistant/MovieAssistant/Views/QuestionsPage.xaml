@@ -46,9 +46,11 @@
                 Command="{Binding RunEngineCommand}"/>
 
             <ListView x:Name="MyListView"
-                        ItemsSource="{Binding Movies}"
                         CachingStrategy="RecycleElement"
                         RowHeight="350"
+                        SelectionMode="None"
+                        ItemsSource="{Binding Movies}"
+                        HeightRequest="{Binding MovieListHeight}"
                         Grid.Row="3">
 
                 <ListView.ItemTemplate>
@@ -80,6 +82,7 @@
                                                 <StackLayout Orientation="Horizontal">
                                                     <Label Text="Duration: " FontSize = "14" VerticalOptions="CenterAndExpand"/>
                                                     <Label Text="{Binding Duration}" FontSize = "16"/>
+                                                    <Label Text="minutes" FontSize = "14" VerticalOptions="CenterAndExpand"/>
                                                 </StackLayout>
                                                 <StackLayout Orientation="Horizontal">
                                                     <Label Text="Release Year: " FontSize = "14" VerticalOptions="CenterAndExpand"/>
