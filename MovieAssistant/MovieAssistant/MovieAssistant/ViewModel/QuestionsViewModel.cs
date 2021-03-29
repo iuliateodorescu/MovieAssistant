@@ -1,6 +1,7 @@
 ﻿using MovieAssistant.InferenceEngine;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
@@ -12,7 +13,7 @@ namespace MovieAssistant.ViewModel
         public QuestionsViewModel()
         {
             facts = new List<string>();
-            Question = ForwardChainingEngine.getInstance().searchQuestion("-",new List<string>());
+            Question = ForwardChainingEngine.getInstance().searchQuestion("-",facts);
 
             RunEngineCommand = new Command(() => RunEngine());
         }
@@ -29,7 +30,16 @@ namespace MovieAssistant.ViewModel
         #region Methods
         private void RunEngine()
         {
-            facts.Add(Question.Domain + "[" + this.GetSelectedAnswer() + "]");
+            string selectedAnswer = this.GetSelectedAnswer();
+            if(selectedAnswer.Contains("<") || selectedAnswer.Contains(">"))
+            {
+                facts.Add(Question.Domain + selectedAnswer);
+            }
+            else
+            {
+                facts.Add(Question.Domain + "[" + this.GetSelectedAnswer() + "]");
+            }
+
             facts = ForwardChainingEngine.getInstance().checkRules(facts);
 
             Question q;
@@ -39,7 +49,13 @@ namespace MovieAssistant.ViewModel
             }
             else
             {
-                Movie = ForwardChainingEngine.getInstance().searchMovies(facts);
+                Movies = ForwardChainingEngine.getInstance().searchMovies(facts);
+                facts = new List<string>();
+                Question = ForwardChainingEngine.getInstance().searchQuestion("-", facts);
+                finished = true;
+                NotifyPropertyChanged(nameof(Movies));
+                NotifyPropertyChanged(nameof(ShowResults));
+                NotifyPropertyChanged(nameof(ShowQuestions));
             }
         }
 
@@ -76,16 +92,42 @@ namespace MovieAssistant.ViewModel
             }
         }
 
-        public Movie Movie
+        public ObservableCollection<Movie> Movies
         {
             get
             {
-                return movie;
+                return movies;
             }
             set
             {
-                movie = value;
-                NotifyPropertyChanged(nameof(Movie));
+                movies = value;
+                NotifyPropertyChanged(nameof(Movies));
+            }
+        }
+
+        public bool ShowQuestions
+        {
+            get
+            {
+                return !finished;
+            }
+        }
+
+        public bool ShowResults
+        {
+            get
+            {
+                return finished;
+            }
+        }
+
+        public bool Finished
+        {
+            set
+            {
+                finished = value;
+                NotifyPropertyChanged(nameof(ShowQuestions));
+                NotifyPropertyChanged(nameof(ShowResults));
             }
         }
         #endregion
@@ -93,7 +135,8 @@ namespace MovieAssistant.ViewModel
         #region Fields
         private Question question;
         private List<string> facts;
-        private Movie movie;
+        private ObservableCollection<Movie> movies;
+        private bool finished = false;
         #endregion
 
         #region Commands

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -12,7 +13,7 @@ namespace MovieAssistant.InferenceEngine
         private ForwardChainingEngine()
         {
             rules = readFileFromResources("rules.txt");
-            movies = readFileFromResources("movies.txt");
+            movieFileLines = readFileFromResources("movies.txt");
         }
 
         internal static ForwardChainingEngine getInstance()
@@ -50,10 +51,13 @@ namespace MovieAssistant.InferenceEngine
             trueFacts.Add("about[" + domain + "]");
             while (i < rules.Length)
             {
-                Rule r = readRule(rules[i]);
-                if (r.isSatisfied(trueFacts))
+                if(rules[i].Contains("about[" + domain + "]"))
                 {
-                    return readQuestion(r.Action);
+                    Rule r = readRule(rules[i]);
+                    if (r.isSatisfied(trueFacts))
+                    {
+                        return readQuestion(r.Action);
+                    }
                 }
 
                 i++;
@@ -84,11 +88,11 @@ namespace MovieAssistant.InferenceEngine
             return trueFacts;
         }
 
-        internal Movie searchMovies(List<string> facts)
+        internal ObservableCollection<Movie> searchMovies(List<string> facts)
         {
             int max = 0;
-            string selectedMovie = "";
-            foreach (var movie in movies)
+            List<string> selectedMovies = new List<string>();
+            foreach (var movie in movieFileLines)
             {
                 int factCounter = 0;
                 foreach (var fact in facts)
@@ -102,11 +106,24 @@ namespace MovieAssistant.InferenceEngine
                 if (factCounter > max)
                 {
                     max = factCounter;
-                    selectedMovie = movie;
+                    selectedMovies.Clear();
+                }
+
+                if(factCounter == max && selectedMovies.Count<5)
+                {
+                    selectedMovies.Add(movie);
                 }
             }
 
-            return new MovieParser().parseMovieLine(selectedMovie);
+            ObservableCollection<Movie> movies = new ObservableCollection<Movie>();
+            MovieParser parser = new MovieParser();
+            foreach(var selectedMovie in selectedMovies)
+            {
+                movies.Add(parser.parseMovieLine(selectedMovie));
+            }
+
+            return movies;
+            //return new Movie("Movie", "Titanic", 1998, 123, new List<string>() { "drama" }, new List<string>() { "DiCaprio" });
         }
 
         private Question readQuestion(string action)
@@ -156,7 +173,7 @@ namespace MovieAssistant.InferenceEngine
 
         #region Fields
         private string[] rules;
-        private string[] movies;
+        private string[] movieFileLines;
         private static ForwardChainingEngine engine = null;
         #endregion
     }

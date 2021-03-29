@@ -7,6 +7,6 @@
             BackgroundColor="White">
 
     <local:HomePage></local:HomePage>
-    <local:QuestionsPage></local:QuestionsPage>
+    <local:RecommendationsPage></local:RecommendationsPage>
     <local:HistoryPage></local:HistoryPage>
 </TabbedPage>

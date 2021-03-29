@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MovieAssistant.Views.ResultsPage"
+             xmlns:viewModel="clr-namespace:MovieAssistant.ViewModel"
+             Title="Results">
+
+    <ContentPage.BindingContext>
+        <viewModel:QuestionsViewModel/>
+    </ContentPage.BindingContext>
+
+    <ListView x:Name="MyListView"
+              ItemsSource="{Binding Movies}"
+              CachingStrategy="RecycleElement"
+              RowHeight="350">
+
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <Frame IsClippedToBounds="True" HasShadow="True" Padding="0" BackgroundColor="White" >
+                        <Frame.Margin>
+                            <OnPlatform x:TypeArguments="Thickness" Android="10" iOS="10" />
+                        </Frame.Margin>
+                        <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                            <Frame HorizontalOptions="FillAndExpand" Margin="0,0,0,0" HasShadow="False" Padding="0"  >
+                                <Grid VerticalOptions="CenterAndExpand" HorizontalOptions="Start" Padding="0" Margin="0,0,0,0"  BackgroundColor="Transparent">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout Grid.Row="0" Grid.Column="0" VerticalOptions="CenterAndExpand" Margin="0,0,0,0">
+                                        <Frame HasShadow="False">
+                                            <Image Source="{Binding Image}" Aspect="AspectFit"  WidthRequest="182" HeightRequest="268" />
+                                        </Frame>
+                                    </StackLayout>
+                                    <StackLayout Grid.Row="0" Grid.Column="1" Padding="0"  Orientation="Vertical" VerticalOptions="CenterAndExpand">
+                                        <StackLayout Orientation="Horizontal" >
+                                            <Label Text="{Binding Title}" TextColor="#222" FontSize = "25" VerticalOptions="CenterAndExpand"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Duration: " FontSize = "14" VerticalOptions="CenterAndExpand"/>
+                                            <Label Text="{Binding Duration}" FontSize = "16"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Release Year: " FontSize = "14" VerticalOptions="CenterAndExpand"/>
+                                            <Label Text="{Binding Year}" FontSize = "14"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
+                    </Frame>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+
+    </ListView>
+</ContentPage>

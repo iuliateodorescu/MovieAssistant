@@ -20,7 +20,7 @@ namespace MovieAssistant.InferenceEngine
             int duration = int.Parse(valueBetween(movieItems.FirstOrDefault(x => x.StartsWith("time")), "[", "]"));
             List<string> genres = movieItems.Where(x => x.StartsWith("genre")).Select(x => valueBetween(x,"[","]")).ToList();
             List<string> actors = movieItems.Where(x => x.StartsWith("actor")).Select(x => valueBetween(x, "[", "]")).ToList();
-            //byte[] imageBytes = requestImage(valueBetween(movieItems.FirstOrDefault(x => x.StartsWith("image")), "[", "]"));
+            byte[] imageBytes = requestImage(valueBetween(movieItems.FirstOrDefault(x => x.StartsWith("image")), "[", "]"));
 
             return new Movie(programType, title, year, duration, genres, actors, null);
         }
